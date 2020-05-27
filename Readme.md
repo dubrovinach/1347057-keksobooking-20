@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url]
 
 * Студент: [Кристина Дубровина](https://up.htmlacademy.ru/javascript/20/user/1347057).
-* Наставник: `Неизвестно`.
+* Наставник: [Артем Доба](https://htmlacademy.ru/profile/id618431).
 
 ---
 
