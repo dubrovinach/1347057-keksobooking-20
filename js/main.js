@@ -94,6 +94,9 @@ var PINS_AMOUNT = 8;
 var OFFSET_Y = 70;
 var OFFSET_X = 25;
 
+var yPinMin = 130;
+var yPinMax = 630;
+
 var pinsBlock = document.querySelector('.map__pins');
 var pinsBlockWidth = pinsBlock.clientWidth;
 
@@ -117,7 +120,7 @@ var createPin = function (picCount) {
     },
     location: {
       x: getRandomIntRange(0 + OFFSET_X, pinsBlockWidth - OFFSET_X),
-      y: getRandomIntRange(130, 630),
+      y: getRandomIntRange(yPinMin, yPinMax),
     }
   };
   return pin;
@@ -133,9 +136,6 @@ var createPins = function () {
 
 var pins = createPins();
 
-var map = document.querySelector('.map');
-map.classList.remove('map--faded');
-
 var pinTemplate = document.querySelector('#pin');
 
 function createPinElement(offerObject) {
@@ -149,11 +149,176 @@ function createPinElement(offerObject) {
   return pinElement;
 }
 
+var mapPinMain = document.querySelector('.map__pin--main');
+
 function appendPinElements() {
   var fragment = document.createDocumentFragment();
   for (var i = 0; i < pins.length; i++) {
     fragment.appendChild(createPinElement(pins[i]));
   }
   pinsBlock.appendChild(fragment);
+
+  mapPinMain.removeEventListener('mousedown', enableSite);
+  mapPinMain.removeEventListener('keydown', enableSite);
 }
-appendPinElements();
+
+// Активация страницы
+
+var map = document.querySelector('.map');
+var form = document.querySelector('.ad-form');
+var inputAddress = form.querySelector('#address');
+
+var MAP_PIN_MAIN_ARROW_HEIGHT = 16;
+
+function defaultAddress(element, isActive) {
+  var buttonWidth = element.clientWidth;
+  var buttonHeight = element.clientHeight;
+  var buttonLeft = element.offsetLeft;
+  var buttonTop = element.offsetTop;
+  var X = Math.round(buttonLeft + buttonWidth / 2);
+  var Y = isActive ? Math.round(buttonTop + buttonHeight + MAP_PIN_MAIN_ARROW_HEIGHT) : Math.round(buttonTop + buttonHeight / 2);
+
+  inputAddress.setAttribute('value', X + ', ' + Y);
+}
+defaultAddress(mapPinMain, false);
+
+var fieldsets = form.querySelectorAll('fieldset');
+
+function disableForm() {
+
+  for (var i = 0; i < fieldsets.length; i++) {
+    fieldsets[i].setAttribute('disabled', 'disabled');
+  }
+}
+disableForm();
+
+function enableForm() {
+
+  for (var i = 0; i < fieldsets.length; i++) {
+    fieldsets[i].removeAttribute('disabled');
+  }
+}
+
+mapPinMain.addEventListener('mousedown', enableSite);
+
+function enableSite(evt) {
+  if (evt.key === 'Enter' || evt.button === 0) {
+    map.classList.remove('map--faded');
+    form.classList.remove('ad-form--disabled');
+
+    appendPinElements();
+    enableForm();
+    defaultAddress(evt.currentTarget, true);
+  }
+}
+
+mapPinMain.addEventListener('keydown', enableSite);
+
+var inputTitle = form.querySelector('#title');
+inputTitle.setAttribute('required', 'required');
+inputTitle.setAttribute('minlength', '30');
+inputTitle.setAttribute('maxlength', '100');
+
+var inputPrice = form.querySelector('#price');
+inputPrice.setAttribute('required', 'required');
+inputPrice.setAttribute('max', '1000000');
+
+var inputImages = form.querySelector('#images');
+inputImages.setAttribute('accept', ['image/png', 'image/jpeg']);
+
+inputTitle.addEventListener('invalid', function () {
+  if (inputTitle.validity.tooShort) {
+    inputTitle.setCustomValidity('Минимум 30 символов');
+  } else if (inputTitle.validity.tooLong) {
+    inputTitle.setCustomValidity('Максимум 100 символов');
+  } else if (inputTitle.validity.valueMissing) {
+    inputTitle.setCustomValidity('Обязательно к заполнению');
+  } else {
+    inputTitle.setCustomValidity('');
+  }
+});
+
+inputPrice.addEventListener('invalid', function (evt) {
+  if (evt.target.validity.valueMissing) {
+    inputPrice.setCustomValidity('Обязательно к заполнению');
+  } else if (evt.target.value > 1000000) {
+    inputPrice.setCustomValidity('Максимальная стоимость - 1000000');
+  } else {
+    inputPrice.setCustomValidity('');
+  }
+});
+
+form.addEventListener('input', function (evt) {
+  if (evt.target === inputPrice || evt.target === inputTitle) {
+    evt.target.reportValidity();
+  }
+});
+
+// Валидация инпутов
+
+var selectedCapacity = document.querySelector('#capacity');
+
+var selectRoomNumber = document.querySelector('#room_number');
+
+selectRoomNumber.addEventListener('change', function (evt) {
+  selectedCapacity.removeEventListener('change', oneRoomValidity);
+  selectedCapacity.removeEventListener('change', twoRoomsValidity);
+  selectedCapacity.removeEventListener('change', threeRoomsValidity);
+  selectedCapacity.removeEventListener('change', onehundredRoomsValidity);
+  switch (evt.target.value) {
+    case '1':
+      oneRoomValidity();
+      selectedCapacity.addEventListener('change', oneRoomValidity);
+      break;
+    case '2':
+      twoRoomsValidity();
+      selectedCapacity.addEventListener('change', twoRoomsValidity);
+      break;
+    case '3':
+      threeRoomsValidity();
+      selectedCapacity.addEventListener('change', threeRoomsValidity);
+      break;
+    case '100':
+      onehundredRoomsValidity();
+      selectedCapacity.addEventListener('change', onehundredRoomsValidity);
+      break;
+
+  }
+});
+
+function oneRoomValidity() {
+  if (selectedCapacity.value !== '1') {
+    selectedCapacity.setCustomValidity('Только для 1 гостя');
+  } else {
+    selectedCapacity.setCustomValidity('');
+  }
+  selectedCapacity.reportValidity();
+}
+
+function twoRoomsValidity() {
+  if (selectedCapacity.value !== '1' && selectedCapacity.value !== '2') {
+    selectedCapacity.setCustomValidity('Только для 1 гостя или 2 гостей');
+  } else {
+    selectedCapacity.setCustomValidity('');
+  }
+  selectedCapacity.reportValidity();
+}
+
+function threeRoomsValidity() {
+  if (selectedCapacity.value === '0') {
+    selectedCapacity.setCustomValidity('Только для 1 гостя, 2 гостей или 3 гостей');
+  } else {
+    selectedCapacity.setCustomValidity('');
+  }
+  selectedCapacity.reportValidity();
+}
+
+function onehundredRoomsValidity() {
+  if (selectedCapacity.value !== '0') {
+    selectedCapacity.setCustomValidity('Только не для гостей');
+  } else {
+    selectedCapacity.setCustomValidity('');
+  }
+  selectedCapacity.reportValidity();
+}
+
