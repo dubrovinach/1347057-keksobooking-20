@@ -100,7 +100,7 @@ var yPinMax = 630;
 var pinsBlock = document.querySelector('.map__pins');
 var pinsBlockWidth = pinsBlock.clientWidth;
 
-var createPin = function (picCount) {
+function createPin(picCount) {
   var pin = {
     author: {
       avatar: 'img/avatars/user0' + (picCount + 1) + '.png',
@@ -124,7 +124,7 @@ var createPin = function (picCount) {
     }
   };
   return pin;
-};
+}
 
 var createPins = function () {
   var pins = [];
@@ -193,7 +193,6 @@ function disableForm() {
 disableForm();
 
 function enableForm() {
-
   for (var i = 0; i < fieldsets.length; i++) {
     fieldsets[i].removeAttribute('disabled');
   }
@@ -282,7 +281,6 @@ selectRoomNumber.addEventListener('change', function (evt) {
       onehundredRoomsValidity();
       selectedCapacity.addEventListener('change', onehundredRoomsValidity);
       break;
-
   }
 });
 
@@ -322,3 +320,57 @@ function onehundredRoomsValidity() {
   selectedCapacity.reportValidity();
 }
 
+// Карточка объявления
+
+var typesOfOffers = {
+  palace: {
+    ru: 'Дворец'
+  },
+  flat: {
+    ru: 'Квартира'
+  },
+  house: {
+    ru: 'Дом'
+  },
+  bungalo: {
+    ru: 'Бунгало'
+  },
+};
+
+var getNoun = function (number, one, two, five) {
+  number = Math.abs(number);
+  number %= 100;
+  if (number >= 5 && number <= 20) {
+    return number + five;
+  }
+  number %= 10;
+  if (number === 1) {
+    return number + one;
+  }
+  if (number >= 2 && number <= 4) {
+    return number + two;
+  }
+  return number + five;
+};
+
+var card = document.querySelector('#card').content.querySelector('.map__card');
+var mapFiltersContainer = document.querySelector('.map__filters-container');
+
+function getCard(value) {
+  var cardElement = card.cloneNode(true);
+  var photoElement = cardElement.querySelector('.popup__photos');
+
+  cardElement.querySelector('.popup__title').textContent = value.offer.title;
+  cardElement.querySelector('.popup__text--address').textContent = value.offer.address;
+  cardElement.querySelector('.popup__text--price').textContent = value.offer.price + ' ₽/ночь';
+  cardElement.querySelector('.popup__type').textContent = typesOfOffers[value.offer.type].ru;
+  cardElement.querySelector('.popup__text--capacity').textContent = getNoun(value.offer.rooms, ' комната', ' комнаты', ' комнат') + ' для ' + getNoun(value.offer.guests, ' гостя', ' гостей', ' гостей');
+  cardElement.querySelector('.popup__text--time').textContent = 'Заезд после ' + value.offer.checkin + ', выезд до ' + value.offer.checkout;
+  cardElement.querySelectorAll('.popup__features').textContent = value.offer.features;
+  cardElement.querySelector('.popup__description').textContent = value.offer.description;
+  photoElement.querySelector('img').src = value.offer.photos[0];
+  cardElement.querySelector('.popup__avatar').setAttribute('src', value.author.avatar);
+
+  return cardElement;
+}
+map.insertBefore(getCard(pins[0]), mapFiltersContainer);
