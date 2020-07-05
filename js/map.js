@@ -88,5 +88,6 @@
 
   window.map = {
     enableSite: enableSite,
+    defaultAddress: defaultAddress,
   };
 })();
