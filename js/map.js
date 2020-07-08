@@ -43,7 +43,7 @@
       map.classList.remove('map--faded');
       form.classList.remove('ad-form--disabled');
 
-      window.pin.appendPinElements();
+      window.backend.getData(window.pin.appendPinElements, alert);
       enableForm();
       defaultAddress(evt.currentTarget, true);
     }
