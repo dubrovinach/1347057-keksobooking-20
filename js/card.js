@@ -22,7 +22,6 @@
   var mapFiltersContainer = document.querySelector('.map__filters-container');
   var map = document.querySelector('.map');
   var pinsBlock = document.querySelector('.map__pins');
-  var pins = window.pin.createPins();
 
   function getCard(value) {
     var cardElement = card.cloneNode(true);
@@ -52,7 +51,7 @@
   }
 
   function openCard(id) {
-    map.insertBefore(getCard(pins[id]), mapFiltersContainer);
+    map.insertBefore(getCard(window.pins[id]), mapFiltersContainer);
 
     var popupClose = document.querySelector('.popup__close');
     document.addEventListener('keydown', onPopupEscPress);
