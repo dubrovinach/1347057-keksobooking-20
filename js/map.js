@@ -23,7 +23,6 @@
   defaultAddress(mapPinMain, false);
 
   function disableForm() {
-
     for (var i = 0; i < fieldsets.length; i++) {
       fieldsets[i].setAttribute('disabled', 'disabled');
     }
@@ -47,6 +46,12 @@
       enableForm();
       defaultAddress(evt.currentTarget, true);
     }
+  }
+
+  function disableSite() {
+    map.classList.add('map--faded');
+    form.classList.add('ad-form--disabled');
+    window.map.disableForm();
   }
 
   mapPinMain.addEventListener('keydown', enableSite);
@@ -88,6 +93,8 @@
 
   window.map = {
     enableSite: enableSite,
+    disableSite: disableSite,
     defaultAddress: defaultAddress,
+    disableForm: disableForm,
   };
 })();

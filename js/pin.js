@@ -1,6 +1,7 @@
 'use strict';
 
 (function () {
+
   var OFFSET_Y = 70;
   var OFFSET_X = 25;
 
@@ -9,6 +10,13 @@
   var pinTemplate = document.querySelector('#pin');
 
   var mapPinMain = document.querySelector('.map__pin--main');
+
+  var map = document.querySelector('.map');
+
+  var MainPinCenter = {
+    top: '375px',
+    left: '570px'
+  };
 
   function createPinElement(offerObject, i) {
     var pinElement = pinTemplate.content.cloneNode(true);
@@ -35,7 +43,22 @@
     mapPinMain.removeEventListener('keydown', window.map.enableSite);
   }
 
+  function removePins() {
+    var pins = map.querySelectorAll('.map__pin:not(.map__pin--main)');
+
+    pins.forEach(function (pin) {
+      pin.remove();
+    });
+  }
+
+  function clearMapPinMain() {
+    mapPinMain.style.left = MainPinCenter.left;
+    mapPinMain.style.top = MainPinCenter.top;
+  }
+
   window.pin = {
     appendPinElements: appendPinElements,
+    removePins: removePins,
+    clearMapPinMain: clearMapPinMain,
   };
 })();
