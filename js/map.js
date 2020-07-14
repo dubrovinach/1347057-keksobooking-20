@@ -10,6 +10,8 @@
 
   var MAP_PIN_MAIN_ARROW_HEIGHT = 16;
 
+  var selectCapacity = document.querySelector('#capacity');
+
   function defaultAddress(element, isActive) {
     var buttonWidth = element.clientWidth;
     var buttonHeight = element.clientHeight;
@@ -23,7 +25,6 @@
   defaultAddress(mapPinMain, false);
 
   function disableForm() {
-
     for (var i = 0; i < fieldsets.length; i++) {
       fieldsets[i].setAttribute('disabled', 'disabled');
     }
@@ -45,8 +46,18 @@
 
       window.backend.getData(window.pin.appendPinElements, alert);
       enableForm();
+      window.form.guestsValidation(selectCapacity);
       defaultAddress(evt.currentTarget, true);
     }
+  }
+
+  function disableSite() {
+    map.classList.add('map--faded');
+    form.classList.add('ad-form--disabled');
+    disableForm();
+
+    mapPinMain.addEventListener('mousedown', enableSite);
+    mapPinMain.addEventListener('keydown', enableSite);
   }
 
   mapPinMain.addEventListener('keydown', enableSite);
@@ -88,6 +99,7 @@
 
   window.map = {
     enableSite: enableSite,
+    disableSite: disableSite,
     defaultAddress: defaultAddress,
   };
 })();

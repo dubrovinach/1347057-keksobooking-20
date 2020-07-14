@@ -95,4 +95,37 @@
     }
     target.reportValidity();
   }
+
+  // отправка данных
+
+  var form = document.querySelector('.ad-form');
+  var mapPinMain = document.querySelector('.map__pin--main');
+  var resetButton = form.querySelector('.ad-form__reset');
+
+  function deleteData() {
+    window.map.disableSite();
+    window.pin.removePins();
+    window.pin.clearMapPinMain();
+    window.map.defaultAddress(mapPinMain, false);
+  }
+
+  function onResetButtonClick(evt) {
+    evt.preventDefault();
+    form.reset();
+  }
+
+  function onFormSubmit(evt) {
+    window.backend.sendData(new FormData(form), window.message.onSuccess, window.message.onError);
+    form.reset();
+    deleteData();
+
+    evt.preventDefault();
+  }
+
+  form.addEventListener('submit', onFormSubmit);
+  resetButton.addEventListener('click', onResetButtonClick);
+
+  window.form = {
+    guestsValidation: guestsValidation,
+  };
 })();
