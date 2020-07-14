@@ -10,6 +10,8 @@
 
   var MAP_PIN_MAIN_ARROW_HEIGHT = 16;
 
+  var selectCapacity = document.querySelector('#capacity');
+
   function defaultAddress(element, isActive) {
     var buttonWidth = element.clientWidth;
     var buttonHeight = element.clientHeight;
@@ -44,7 +46,7 @@
 
       window.backend.getData(window.pin.appendPinElements, alert);
       enableForm();
-      guestsValidation(selectCapacity);
+      window.form.guestsValidation(selectCapacity);
       defaultAddress(evt.currentTarget, true);
     }
   }

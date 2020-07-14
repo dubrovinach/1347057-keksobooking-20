@@ -125,4 +125,7 @@
   form.addEventListener('submit', onFormSubmit);
   resetButton.addEventListener('click', onResetButtonClick);
 
+  window.form = {
+    guestsValidation: guestsValidation,
+  };
 })();
