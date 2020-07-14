@@ -112,13 +112,13 @@
   function onResetButtonClick(evt) {
     evt.preventDefault();
     form.reset();
-    deleteData();
   }
 
   function onFormSubmit(evt) {
     window.backend.sendData(new FormData(form), window.message.onSuccess, window.message.onError);
     form.reset();
     deleteData();
+
     evt.preventDefault();
   }
 

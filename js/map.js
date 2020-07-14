@@ -44,6 +44,7 @@
 
       window.backend.getData(window.pin.appendPinElements, alert);
       enableForm();
+      guestsValidation(selectCapacity);
       defaultAddress(evt.currentTarget, true);
     }
   }
@@ -51,7 +52,10 @@
   function disableSite() {
     map.classList.add('map--faded');
     form.classList.add('ad-form--disabled');
-    window.map.disableForm();
+    disableForm();
+
+    mapPinMain.addEventListener('mousedown', enableSite);
+    mapPinMain.addEventListener('keydown', enableSite);
   }
 
   mapPinMain.addEventListener('keydown', enableSite);
@@ -95,6 +99,5 @@
     enableSite: enableSite,
     disableSite: disableSite,
     defaultAddress: defaultAddress,
-    disableForm: disableForm,
   };
 })();
