@@ -95,4 +95,8 @@
       evt.target.parentElement.classList.add('map__pin--active');
     }
   });
+
+  window.card = {
+    removeCard: removeCard,
+  };
 })();
