@@ -12,7 +12,8 @@
 
     xhr.addEventListener('load', function () {
       if (xhr.status === 200) {
-        onSuccess(xhr.response);
+        window.pins = xhr.response;
+        onSuccess(window.main.getAmountOfPins(xhr.response, window.pin.MAX_PINS));
       } else {
         onError('Cтатус ответа: ' + xhr.status + ' ' + xhr.statusText);
       }

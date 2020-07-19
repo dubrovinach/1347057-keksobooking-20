@@ -28,6 +28,7 @@
     for (var i = 0; i < fieldsets.length; i++) {
       fieldsets[i].setAttribute('disabled', 'disabled');
     }
+    window.filter.toggleFilters();
   }
   disableForm();
 
@@ -35,6 +36,7 @@
     for (var i = 0; i < fieldsets.length; i++) {
       fieldsets[i].removeAttribute('disabled');
     }
+    window.filter.toggleFilters();
   }
 
   mapPinMain.addEventListener('mousedown', enableSite);

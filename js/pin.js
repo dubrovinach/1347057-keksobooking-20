@@ -1,16 +1,13 @@
 'use strict';
 
 (function () {
-
   var OFFSET_Y = 70;
   var OFFSET_X = 25;
+  var MAX_PINS = 5;
 
   var pinsBlock = document.querySelector('.map__pins');
-
   var pinTemplate = document.querySelector('#pin');
-
   var mapPinMain = document.querySelector('.map__pin--main');
-
   var map = document.querySelector('.map');
 
   var MainPinCenter = {
@@ -32,8 +29,8 @@
   }
 
   function appendPinElements(pins) {
-    window.pins = pins;
     var fragment = document.createDocumentFragment();
+
     for (var i = 0; i < pins.length; i++) {
       fragment.appendChild(createPinElement(pins[i], i));
     }
@@ -60,5 +57,6 @@
     appendPinElements: appendPinElements,
     removePins: removePins,
     clearMapPinMain: clearMapPinMain,
+    MAX_PINS: MAX_PINS,
   };
 })();
