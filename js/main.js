@@ -35,10 +35,17 @@
     return number + five;
   };
 
+  function getAmountOfPins(pins, MAX_PINS) {
+    var sortedPins = pins.slice(0, MAX_PINS);
+    window.filteredPins = sortedPins;
+    return sortedPins;
+  }
+
   window.main = {
     getRandomAmount: getRandomAmount,
     getRandomInt: getRandomInt,
     getRandomIntRange: getRandomIntRange,
     getNoun: getNoun,
+    getAmountOfPins: getAmountOfPins,
   };
 })();

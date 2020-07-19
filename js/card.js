@@ -51,7 +51,7 @@
   }
 
   function openCard(id) {
-    map.insertBefore(getCard(window.pins[id]), mapFiltersContainer);
+    map.insertBefore(getCard(window.filteredPins[id]), mapFiltersContainer);
 
     var popupClose = document.querySelector('.popup__close');
     document.addEventListener('keydown', onPopupEscPress);
