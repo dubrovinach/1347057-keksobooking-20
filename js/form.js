@@ -1,18 +1,14 @@
 'use strict';
 
-// Валидация инпутов типа жилья и цены за ночь
 (function () {
   var selectTypeOfHousing = document.querySelector('#type');
-
   var selectPrice = document.querySelector('#price');
-
   var housePrices = {
     palace: 10000,
     flat: 1000,
     house: 5000,
     bungalo: 0,
   };
-
   var houseValue = 'flat';
 
   selectTypeOfHousing.addEventListener('change', function (evt) {
@@ -37,10 +33,7 @@
     target.reportValidity();
   }
 
-  // Валидация инпутов времени заезда и выезда
-
   var inputTimeIn = document.querySelector('#timein');
-
   var inputTimeOut = document.querySelector('#timeout');
 
   inputTimeIn.addEventListener('change', function (evt) {
@@ -51,10 +44,7 @@
     inputTimeIn.value = evt.target.value;
   });
 
-  // Валидация инпутов количества комнат и гостей
-
   var selectCapacity = document.querySelector('#capacity');
-
   var selectRoomNumber = document.querySelector('#room_number');
 
   var guestCapacity = {
@@ -70,7 +60,6 @@
     3: 'Только для 1, 2 или 3 гостей',
     100: 'Не для гостей',
   };
-
   var typeOfRoom = '1';
 
   selectRoomNumber.addEventListener('change', function (evt) {
@@ -95,8 +84,6 @@
     }
     target.reportValidity();
   }
-
-  // отправка данных
 
   var form = document.querySelector('.ad-form');
   var mapPinMain = document.querySelector('.map__pin--main');

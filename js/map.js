@@ -1,6 +1,5 @@
 'use strict';
 
-// Активация страницы
 (function () {
   var map = document.querySelector('.map');
   var form = document.querySelector('.ad-form');

@@ -3,9 +3,12 @@
 (function () {
   var mapFilters = document.querySelector('.map__filters');
   var housingType = mapFilters.querySelector('#housing-type');
-  // var housingPrice = mapFilters.querySelector('#housing-price');
+  var housingPrice = mapFilters.querySelector('#housing-price');
   var housingRooms = mapFilters.querySelector('#housing-rooms');
   var housingGuests = mapFilters.querySelector('#housing-guests');
+
+  var LOW_PRICE = 10000;
+  var HIGH_PRICE = 50000;
 
   function toggleFilters() {
     mapFilters.reset();
@@ -19,11 +22,25 @@
   }
 
   function checkRooms(pin) {
-    return housingRooms.value === 'any' ? true : housingRooms.value === pin.offer.rooms;
+    return housingRooms.value === 'any' ? true : Number(housingRooms.value) === pin.offer.rooms;
   }
 
   function checkGuests(pin) {
-    return housingGuests.value === 'any' ? true : housingGuests.value === pin.offer.guests;
+    return housingGuests.value === 'any' ? true : Number(housingGuests.value) === pin.offer.guests;
+  }
+
+  function checkPrice(pin) {
+    var price = pin.offer.price;
+    switch (housingPrice.value) {
+      case 'low':
+        return price < LOW_PRICE;
+      case 'middle':
+        return price >= LOW_PRICE && price <= HIGH_PRICE;
+      case 'high':
+        return price > HIGH_PRICE;
+      default:
+        return true;
+    }
   }
 
   var filterHousingCheckbox = function (pin) {
@@ -36,7 +53,7 @@
 
   function getFiltredData(pins) {
     var filteredPins = pins.filter(function (pin) {
-      return checkType(pin) && checkGuests(pin) && checkRooms(pin) && filterHousingCheckbox(pin);
+      return checkType(pin) && checkGuests(pin) && checkRooms(pin) && filterHousingCheckbox(pin) && checkPrice(pin);
     });
     return window.main.getAmountOfPins(filteredPins, window.pin.MAX_PINS);
   }

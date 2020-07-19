@@ -41,11 +41,20 @@
     return sortedPins;
   }
 
+  function checkContent(element, value, textContent) {
+    if (value) {
+      element.textContent = textContent;
+    } else {
+      element.remove();
+    }
+  }
+
   window.main = {
     getRandomAmount: getRandomAmount,
     getRandomInt: getRandomInt,
     getRandomIntRange: getRandomIntRange,
     getNoun: getNoun,
     getAmountOfPins: getAmountOfPins,
+    checkContent: checkContent,
   };
 })();
