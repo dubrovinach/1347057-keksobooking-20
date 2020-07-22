@@ -55,6 +55,7 @@
     element.appendChild(imgElement);
     previewElements.push(element);
   }
+  createPreviewElement();
 
   var previewPhoto = previewBlock.appendChild(createImgElement());
 
