@@ -3,7 +3,7 @@
 (function () {
   var selectTypeOfHousing = document.querySelector('#type');
   var selectPrice = document.querySelector('#price');
-  var housePrices = {
+  var HousePrices = {
     palace: 10000,
     flat: 1000,
     house: 5000,
@@ -23,8 +23,8 @@
   function checkPriceValidity(target) {
     if (target.validity.valueMissing) {
       target.setCustomValidity('Обязательно к заполнению');
-    } else if (housePrices[houseValue] > target.value) {
-      target.setCustomValidity('Минимальная цена ' + housePrices[houseValue]);
+    } else if (HousePrices[houseValue] > target.value) {
+      target.setCustomValidity('Минимальная цена ' + HousePrices[houseValue]);
     } else if (target.value > 1000000) {
       target.setCustomValidity('Максимальная цена 1000000');
     } else {
@@ -47,14 +47,14 @@
   var selectCapacity = document.querySelector('#capacity');
   var selectRoomNumber = document.querySelector('#room_number');
 
-  var guestCapacity = {
+  var GuestCapacity = {
     1: ['1'],
     2: ['1', '2'],
     3: ['1', '2', '3'],
     100: ['0'],
   };
 
-  var guestValidity = {
+  var GuestValidity = {
     1: 'Только для 1 гостя',
     2: 'Только для 1 или 2 гостей',
     3: 'Только для 1, 2 или 3 гостей',
@@ -64,21 +64,21 @@
 
   selectRoomNumber.addEventListener('change', function (evt) {
     typeOfRoom = evt.target.value;
-    guestsValidation(selectCapacity);
+    checkGuestsValidation(selectCapacity);
   });
 
   selectCapacity.addEventListener('change', function (evt) {
     var target = evt.target;
-    guestsValidation(target);
+    checkGuestsValidation(target);
   });
 
-  function guestsValidation(target) {
-    var isValid = guestCapacity[typeOfRoom].some(function (element) {
+  function checkGuestsValidation(target) {
+    var isValid = GuestCapacity[typeOfRoom].some(function (element) {
       return element === target.value;
     });
 
     if (!isValid) {
-      target.setCustomValidity(guestValidity[typeOfRoom]);
+      target.setCustomValidity(GuestValidity[typeOfRoom]);
     } else {
       target.setCustomValidity('');
     }
@@ -113,6 +113,6 @@
   resetButton.addEventListener('click', onResetButtonClick);
 
   window.form = {
-    guestsValidation: guestsValidation,
+    checkGuestsValidation: checkGuestsValidation,
   };
 })();
