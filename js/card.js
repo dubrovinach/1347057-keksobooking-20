@@ -1,19 +1,11 @@
 'use strict';
 
 (function () {
-  var typesOfOffers = {
-    palace: {
-      ru: 'Дворец'
-    },
-    flat: {
-      ru: 'Квартира'
-    },
-    house: {
-      ru: 'Дом'
-    },
-    bungalo: {
-      ru: 'Бунгало'
-    },
+  var TypesOfOffers = {
+    palace: 'Дворец',
+    flat: 'Квартира',
+    house: 'Дом',
+    bungalo: 'Бунгало',
   };
 
   var card = document.querySelector('#card').content.querySelector('.map__card');
@@ -38,7 +30,7 @@
     window.main.checkContent(title, value.offer.title, value.offer.title);
     window.main.checkContent(textAddress, value.offer.address, value.offer.address);
     window.main.checkContent(textPrice, value.offer.price, value.offer.price + ' ₽/ночь');
-    window.main.checkContent(type, value.offer.type, typesOfOffers[value.offer.type].ru);
+    window.main.checkContent(type, value.offer.type, TypesOfOffers[value.offer.type].ru);
     window.main.checkContent(capacity, value.offer.rooms, window.main.getNoun(value.offer.rooms, ' комната', ' комнаты', ' комнат') + ' для ' + window.main.getNoun(value.offer.guests, ' гостя', ' гостей', ' гостей'));
     window.main.checkContent(textTime, value.offer.checkin, 'Заезд после ' + value.offer.checkin + ', выезд до ' + value.offer.checkout);
     window.main.checkContent(description, value.offer.description, value.offer.description);

@@ -1,15 +1,19 @@
 'use strict';
 
 (function () {
-  var map = document.querySelector('.map');
-  var form = document.querySelector('.ad-form');
-  var inputAddress = form.querySelector('#address');
-  var mapPinMain = document.querySelector('.map__pin--main');
-  var fieldsets = form.querySelectorAll('fieldset');
-
   var MAP_PIN_MAIN_ARROW_HEIGHT = 16;
 
+  var map = document.querySelector('.map');
+  var form = document.querySelector('.ad-form');
+  var mapPinMain = document.querySelector('.map__pin--main');
   var selectCapacity = document.querySelector('#capacity');
+
+  var fieldsets = form.querySelectorAll('fieldset');
+  var inputAddress = form.querySelector('#address');
+  var inputTitle = form.querySelector('#title');
+  var inputPrice = form.querySelector('#price');
+  var inputImages = form.querySelector('#images');
+  var inputAvatar = form.querySelector('#avatar');
 
   function defaultAddress(element, isActive) {
     var buttonWidth = element.clientWidth;
@@ -38,7 +42,7 @@
     window.filter.toggleFilters();
   }
 
-  mapPinMain.addEventListener('mousedown', enableSite);
+  mapPinMain.addEventListener('click', enableSite);
 
   function enableSite(evt) {
     if (evt.key === 'Enter' || evt.button === 0) {
@@ -47,7 +51,7 @@
 
       window.backend.getData(window.pin.appendPinElements, alert);
       enableForm();
-      window.form.guestsValidation(selectCapacity);
+      window.form.checkGuestsValidation(selectCapacity);
       defaultAddress(evt.currentTarget, true);
     }
   }
@@ -61,21 +65,15 @@
     mapPinMain.addEventListener('keydown', enableSite);
   }
 
-  mapPinMain.addEventListener('keydown', enableSite);
-
-  var inputTitle = form.querySelector('#title');
   inputTitle.setAttribute('required', 'required');
   inputTitle.setAttribute('minlength', '30');
   inputTitle.setAttribute('maxlength', '100');
 
-  var inputPrice = form.querySelector('#price');
   inputPrice.setAttribute('required', 'required');
   inputPrice.setAttribute('max', '1000000');
 
-  var inputImages = form.querySelector('#images');
   inputImages.setAttribute('accept', ['image/png', 'image/jpeg']);
 
-  var inputAvatar = form.querySelector('#avatar');
   inputAvatar.setAttribute('accept', ['image/png', 'image/jpeg']);
 
   inputAddress.setAttribute('readonly', 'readonly');
