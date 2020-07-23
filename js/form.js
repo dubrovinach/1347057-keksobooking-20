@@ -97,6 +97,7 @@
   }
 
   function onResetButtonClick(evt) {
+    window.preview.resetPreview();
     evt.preventDefault();
     form.reset();
   }
@@ -105,6 +106,7 @@
     window.backend.sendData(new FormData(form), window.message.onSuccess, window.message.onError);
     form.reset();
     deleteData();
+    window.preview.resetPreview();
 
     evt.preventDefault();
   }

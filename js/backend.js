@@ -36,7 +36,6 @@
   function sendData(data, onSuccess, onError) {
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
-    xhr.setRequestHeader('Content-Type', 'multipart/form-data');
 
     xhr.addEventListener('load', function () {
       if (xhr.status === 200) {

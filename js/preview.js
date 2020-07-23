@@ -14,6 +14,8 @@
 
   var previewElements = [];
 
+  var discardAvatar = previewAvatar.src;
+
   function loadImage(element, onLoad) {
     var file = element.files[0];
     var fileName = file.name.toLowerCase();
@@ -33,23 +35,22 @@
     }
   }
 
-  function createPhotoElement(src, alt, width, heigth) {
-    var photoElement = document.createElement('img');
-    photoElement.setAttribute('src', src);
-    photoElement.setAttribute('alt', alt);
-    photoElement.setAttribute('width', width);
-    photoElement.setAttribute('heigth', heigth);
-
-    return photoElement;
-  }
-
   function createPreviewElement(src) {
     var block = document.createElement('div');
     block.classList.add('ad-form__photo');
-    var imgElement = createPhotoElement(src, 'Фотография жилья', SIZE_PHOTOS, SIZE_PHOTOS);
+    var imgElement = window.main.createPhotoElement(src, 'Фотография жилья', SIZE_PHOTOS, SIZE_PHOTOS);
     block.appendChild(imgElement);
     previewElements.push(block);
     photoContainer.insertBefore(block, previewBlock);
+  }
+
+  function resetPreview() {
+    if (previewElements) {
+      previewElements.forEach(function (element) {
+        element.remove();
+      });
+    }
+    previewAvatar.src = discardAvatar;
   }
 
   avatarInput.addEventListener('change', function () {
@@ -61,4 +62,8 @@
   photoInput.addEventListener('change', function () {
     loadImage(photoInput, createPreviewElement);
   });
+
+  window.preview = {
+    resetPreview: resetPreview,
+  };
 })();
