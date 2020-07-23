@@ -10,6 +10,8 @@
   var photoInput = document.querySelector('.ad-form__upload input[type=file]');
   var previewBlock = document.querySelector('.ad-form__photo');
 
+  var photoContainer = document.querySelector('.ad-form__photo-container');
+
   var previewElements = [];
 
   function loadImage(element, onLoad) {
@@ -31,33 +33,24 @@
     }
   }
 
-  function createImgElement() {
-    var previewImg = document.createElement('img');
+  function createPhotoElement(src, alt, width, heigth) {
+    var photoElement = document.createElement('img');
+    photoElement.setAttribute('src', src);
+    photoElement.setAttribute('alt', alt);
+    photoElement.setAttribute('width', width);
+    photoElement.setAttribute('heigth', heigth);
 
-    previewImg.width = SIZE_PHOTOS;
-    previewImg.height = SIZE_PHOTOS;
-    previewImg.alt = 'Фотография жилья';
-    previewImg.setAttribute('border', 'none');
-
-    previewBlock.appendChild(previewImg);
-
-    return previewImg;
+    return photoElement;
   }
 
-  function addActiveState(element, elementClass) {
-    element.classList.add(elementClass);
+  function createPreviewElement(src) {
+    var block = document.createElement('div');
+    block.classList.add('ad-form__photo');
+    var imgElement = createPhotoElement(src, 'Фотография жилья', SIZE_PHOTOS, SIZE_PHOTOS);
+    block.appendChild(imgElement);
+    previewElements.push(block);
+    photoContainer.insertBefore(block, previewBlock);
   }
-
-  function createPreviewElement() {
-    var element = document.createElement('div');
-    addActiveState(element, previewBlock);
-    var imgElement = createImgElement();
-    element.appendChild(imgElement);
-    previewElements.push(element);
-  }
-  createPreviewElement();
-
-  var previewPhoto = previewBlock.appendChild(createImgElement());
 
   avatarInput.addEventListener('change', function () {
     loadImage(avatarInput, function (image) {
@@ -66,8 +59,6 @@
   });
 
   photoInput.addEventListener('change', function () {
-    loadImage(photoInput, function (image) {
-      previewPhoto.src = image;
-    });
+    loadImage(photoInput, createPreviewElement);
   });
 })();
