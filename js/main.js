@@ -31,9 +31,20 @@
     }
   }
 
+  function createPhotoElement(src, alt, width, heigth) {
+    var photoElement = document.createElement('img');
+    photoElement.setAttribute('src', src);
+    photoElement.setAttribute('alt', alt);
+    photoElement.setAttribute('width', width);
+    photoElement.setAttribute('heigth', heigth);
+
+    return photoElement;
+  }
+
   window.main = {
     getNoun: getNoun,
     getAmountOfPins: getAmountOfPins,
     checkContent: checkContent,
+    createPhotoElement: createPhotoElement,
   };
 })();

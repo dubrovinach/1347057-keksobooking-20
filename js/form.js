@@ -20,6 +20,8 @@
     checkPriceValidity(evt.target);
   });
 
+  selectTypeOfHousing.addEventListener('change', onTypeChange);
+
   function checkPriceValidity(target) {
     if (target.validity.valueMissing) {
       target.setCustomValidity('Обязательно к заполнению');
@@ -31,6 +33,12 @@
       target.setCustomValidity('');
     }
     target.reportValidity();
+  }
+
+  function onTypeChange(evt) {
+    selectPrice.placeholder = HousePrices[evt.target.value];
+    selectPrice.min = HousePrices[evt.target.value];
+    checkPriceValidity(selectPrice);
   }
 
   var inputTimeIn = document.querySelector('#timein');
@@ -97,14 +105,19 @@
   }
 
   function onResetButtonClick(evt) {
+    window.preview.resetPreview();
     evt.preventDefault();
     form.reset();
+    deleteData();
+    window.card.removeCard();
   }
 
   function onFormSubmit(evt) {
     window.backend.sendData(new FormData(form), window.message.onSuccess, window.message.onError);
     form.reset();
     deleteData();
+    window.preview.resetPreview();
+    window.card.removeCard();
 
     evt.preventDefault();
   }

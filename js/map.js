@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  var MAP_PIN_MAIN_ARROW_HEIGHT = 16;
+  var MAIN_PIN_TIP = 16;
 
   var map = document.querySelector('.map');
   var form = document.querySelector('.ad-form');
@@ -21,7 +21,7 @@
     var buttonLeft = element.offsetLeft;
     var buttonTop = element.offsetTop;
     var X = Math.round(buttonLeft + buttonWidth / 2);
-    var Y = isActive ? Math.round(buttonTop + buttonHeight + MAP_PIN_MAIN_ARROW_HEIGHT) : Math.round(buttonTop + buttonHeight / 2);
+    var Y = isActive ? Math.round(buttonTop + buttonHeight + MAIN_PIN_TIP) : Math.round(buttonTop + buttonHeight / 2);
 
     inputAddress.setAttribute('value', X + ', ' + Y);
   }
@@ -54,6 +54,7 @@
       window.form.checkGuestsValidation(selectCapacity);
       defaultAddress(evt.currentTarget, true);
     }
+    mapPinMain.removeEventListener('click', enableSite);
   }
 
   function disableSite() {
@@ -61,8 +62,7 @@
     form.classList.add('ad-form--disabled');
     disableForm();
 
-    mapPinMain.addEventListener('mousedown', enableSite);
-    mapPinMain.addEventListener('keydown', enableSite);
+    mapPinMain.addEventListener('click', enableSite);
   }
 
   inputTitle.setAttribute('required', 'required');
