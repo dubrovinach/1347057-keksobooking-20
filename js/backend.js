@@ -1,9 +1,11 @@
 'use strict';
 
 (function () {
+  var OK_STATUS_CODE = 200;
+  var TIMEOUT = 10000;
   var URL = {
-    get: 'https://javascript.pages.academy/keksobooking/data',
-    send: 'https://javascript.pages.academy/keksobooking',
+    Get: 'https://javascript.pages.academy/keksobooking/data',
+    Send: 'https://javascript.pages.academy/keksobooking',
   };
 
   function getData(onSuccess, onError) {
@@ -11,7 +13,7 @@
     xhr.responseType = 'json';
 
     xhr.addEventListener('load', function () {
-      if (xhr.status === 200) {
+      if (xhr.status === OK_STATUS_CODE) {
         window.pins = xhr.response;
         onSuccess(window.main.getAmountOfPins(xhr.response, window.pin.MAX_PINS));
       } else {
@@ -27,9 +29,9 @@
       onError('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
     });
 
-    xhr.timeout = 10000;
+    xhr.timeout = TIMEOUT;
 
-    xhr.open('GET', URL.get);
+    xhr.open('GET', URL.Get);
     xhr.send();
   }
 
@@ -38,13 +40,13 @@
     xhr.responseType = 'json';
 
     xhr.addEventListener('load', function () {
-      if (xhr.status === 200) {
+      if (xhr.status === OK_STATUS_CODE) {
         onSuccess(xhr.response);
       } else {
         onError();
       }
     });
-    xhr.open('POST', URL.send);
+    xhr.open('POST', URL.Send);
     xhr.send(data);
   }
 

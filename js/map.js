@@ -2,6 +2,8 @@
 
 (function () {
   var MAIN_PIN_TIP = 16;
+  var ENTER = 'Enter';
+  var BUTTON_CLICK = 0;
 
   var map = document.querySelector('.map');
   var form = document.querySelector('.ad-form');
@@ -28,24 +30,24 @@
   defaultAddress(mapPinMain, false);
 
   function disableForm() {
-    for (var i = 0; i < fieldsets.length; i++) {
-      fieldsets[i].setAttribute('disabled', 'disabled');
-    }
-    window.filter.toggleFilters();
+    fieldsets.forEach(function (fieldset) {
+      fieldset.setAttribute('disabled', 'disabled');
+    });
+    window.filter.toggle();
   }
   disableForm();
 
   function enableForm() {
-    for (var i = 0; i < fieldsets.length; i++) {
-      fieldsets[i].removeAttribute('disabled');
-    }
-    window.filter.toggleFilters();
+    fieldsets.forEach(function (fieldset) {
+      fieldset.removeAttribute('disabled');
+    });
+    window.filter.toggle();
   }
 
   mapPinMain.addEventListener('click', enableSite);
 
   function enableSite(evt) {
-    if (evt.key === 'Enter' || evt.button === 0) {
+    if (evt.key === ENTER || evt.button === BUTTON_CLICK) {
       map.classList.remove('map--faded');
       form.classList.remove('ad-form--disabled');
 

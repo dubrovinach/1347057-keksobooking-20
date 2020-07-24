@@ -64,6 +64,6 @@
   });
 
   window.preview = {
-    resetPreview: resetPreview,
+    reset: resetPreview,
   };
 })();

@@ -1,6 +1,8 @@
 'use strict';
 
 (function () {
+  var MAX_PRICE = 1000000;
+
   var selectTypeOfHousing = document.querySelector('#type');
   var selectPrice = document.querySelector('#price');
   var HousePrices = {
@@ -27,7 +29,7 @@
       target.setCustomValidity('Обязательно к заполнению');
     } else if (HousePrices[houseValue] > target.value) {
       target.setCustomValidity('Минимальная цена ' + HousePrices[houseValue]);
-    } else if (target.value > 1000000) {
+    } else if (target.value > MAX_PRICE) {
       target.setCustomValidity('Максимальная цена 1000000');
     } else {
       target.setCustomValidity('');
@@ -99,25 +101,25 @@
 
   function deleteData() {
     window.map.disableSite();
-    window.pin.removePins();
+    window.pin.remove();
     window.pin.clearMapPinMain();
     window.map.defaultAddress(mapPinMain, false);
   }
 
   function onResetButtonClick(evt) {
-    window.preview.resetPreview();
+    window.preview.reset();
     evt.preventDefault();
     form.reset();
     deleteData();
-    window.card.removeCard();
+    window.card.remove();
   }
 
   function onFormSubmit(evt) {
     window.backend.sendData(new FormData(form), window.message.onSuccess, window.message.onError);
     form.reset();
     deleteData();
-    window.preview.resetPreview();
-    window.card.removeCard();
+    window.preview.reset();
+    window.card.remove();
 
     evt.preventDefault();
   }
