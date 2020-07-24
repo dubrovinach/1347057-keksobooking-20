@@ -2,7 +2,7 @@
 
 (function () {
   var MAIN_PIN_TIP = 16;
-  var ENTER = 'Enter';
+  var ENTER_KEY = 'Enter';
   var BUTTON_CLICK = 0;
 
   var map = document.querySelector('.map');
@@ -47,7 +47,7 @@
   mapPinMain.addEventListener('click', enableSite);
 
   function enableSite(evt) {
-    if (evt.key === ENTER || evt.button === BUTTON_CLICK) {
+    if (evt.key === ENTER_KEY || evt.button === BUTTON_CLICK) {
       map.classList.remove('map--faded');
       form.classList.remove('ad-form--disabled');
 

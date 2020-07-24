@@ -12,7 +12,6 @@
 
   var debounce = window.debounce(window.pin.appendPinElements);
 
-
   function toggleFilters() {
     mapFilters.reset();
     mapFilters.childNodes.forEach(function (filter) {

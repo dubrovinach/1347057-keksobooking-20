@@ -1,6 +1,6 @@
 'use strict';
 (function () {
-  var ESCAPE = 'Escape';
+  var ESCAPE_KEY = 'Escape';
 
   var main = document.querySelector('main');
 
@@ -38,9 +38,9 @@
   }
 
   function onEscButtonPress(evt) {
-    if (evt.key === ESCAPE && document.querySelector('.success')) {
+    if (evt.key === ESCAPE_KEY && document.querySelector('.success')) {
       onSuccessMessageRemove();
-    } else if (evt.key === ESCAPE && document.querySelector('.error')) {
+    } else if (evt.key === ESCAPE_KEY && document.querySelector('.error')) {
       onErrorButtonRemove();
     }
   }

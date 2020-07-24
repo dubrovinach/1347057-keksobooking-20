@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  var ESCAPE = 'Escape';
+  var ESCAPE_KEY = 'Escape';
 
   var TypesOfOffers = {
     palace: 'Дворец',
@@ -84,7 +84,7 @@
   }
 
   function onPopupEscPress(evt) {
-    if (evt.key === ESCAPE) {
+    if (evt.key === ESCAPE_KEY) {
       closeCard();
     }
   }
