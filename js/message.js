@@ -1,5 +1,7 @@
 'use strict';
 (function () {
+  var ESCAPE_KEY = 'Escape';
+
   var main = document.querySelector('main');
 
   function onError() {
@@ -23,8 +25,7 @@
   function onSuccess() {
     var successTemplate = document.querySelector('#success').content.querySelector('.success');
     var successElement = successTemplate.cloneNode(true);
-    var successMessage = successElement.querySelector('.success__message');
-    successMessage.addEventListener('mousedown', onSuccessMessageRemove);
+    successElement.addEventListener('mousedown', onSuccessMessageRemove);
     main.appendChild(successElement);
 
     document.addEventListener('keydown', onEscButtonPress);
@@ -37,9 +38,9 @@
   }
 
   function onEscButtonPress(evt) {
-    if (evt.key === 'Escape' && document.querySelector('.success')) {
+    if (evt.key === ESCAPE_KEY && document.querySelector('.success')) {
       onSuccessMessageRemove();
-    } else if (evt.key === 'Escape' && document.querySelector('.error')) {
+    } else if (evt.key === ESCAPE_KEY && document.querySelector('.error')) {
       onErrorButtonRemove();
     }
   }

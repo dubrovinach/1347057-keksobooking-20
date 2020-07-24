@@ -10,6 +10,8 @@
   var housingRooms = mapFilters.querySelector('#housing-rooms');
   var housingGuests = mapFilters.querySelector('#housing-guests');
 
+  var debounce = window.debounce(window.pin.appendPinElements);
+
   function toggleFilters() {
     mapFilters.reset();
     mapFilters.childNodes.forEach(function (filter) {
@@ -47,7 +49,7 @@
     var housingCheckbox = mapFilters.querySelectorAll('.map__checkbox:checked');
 
     return Array.from(housingCheckbox).every(function (feature) {
-      return pin.offer.features.indexOf(feature.value) >= 0;
+      return ~pin.offer.features.indexOf(feature.value);
     });
   }
 
@@ -59,15 +61,15 @@
   }
 
   function onFilterChange() {
-    window.card.removeCard();
-    window.pin.removePins();
+    window.card.remove();
+    window.pin.remove();
     var pins = window.pins;
-    window.debounce(window.pin.appendPinElements(getFiltredData(pins)));
+    debounce(getFiltredData(pins));
   }
 
   mapFilters.addEventListener('change', onFilterChange);
 
   window.filter = {
-    toggleFilters: toggleFilters,
+    toggle: toggleFilters,
   };
 })();

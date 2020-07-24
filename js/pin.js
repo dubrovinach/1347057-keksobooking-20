@@ -55,7 +55,7 @@
 
   window.pin = {
     appendPinElements: appendPinElements,
-    removePins: removePins,
+    remove: removePins,
     clearMapPinMain: clearMapPinMain,
     MAX_PINS: MAX_PINS,
   };
