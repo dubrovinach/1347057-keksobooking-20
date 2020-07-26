@@ -57,7 +57,7 @@
     var filteredPins = pins.filter(function (pin) {
       return checkType(pin) && checkGuests(pin) && checkRooms(pin) && checkFeatures(pin) && checkPrice(pin);
     });
-    return window.main.getAmountOfPins(filteredPins, window.pin.MAX_PINS);
+    return window.main.getAmountOfPins(filteredPins, window.util.MAX_PINS);
   }
 
   function onFilterChange() {

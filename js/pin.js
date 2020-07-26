@@ -3,7 +3,6 @@
 (function () {
   var OFFSET_Y = 70;
   var OFFSET_X = 25;
-  var MAX_PINS = 5;
 
   var pinsBlock = document.querySelector('.map__pins');
   var pinTemplate = document.querySelector('#pin');
@@ -57,6 +56,5 @@
     appendPinElements: appendPinElements,
     remove: removePins,
     clearMapPinMain: clearMapPinMain,
-    MAX_PINS: MAX_PINS,
   };
 })();
