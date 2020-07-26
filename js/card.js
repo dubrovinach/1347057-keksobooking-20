@@ -36,6 +36,7 @@
     window.main.checkContent(description, value.offer.description, value.offer.description);
     sortFeatures(features, value.offer.features);
     createPhotos(photoElement, value.offer.photos);
+
     if (value.author.avatar) {
       avatar.setAttribute('src', value.author.avatar);
     } else {
