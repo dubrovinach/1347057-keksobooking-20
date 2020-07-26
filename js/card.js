@@ -1,8 +1,6 @@
 'use strict';
 
 (function () {
-  var ESCAPE_KEY = 'Escape';
-
   var TypesOfOffers = {
     palace: 'Дворец',
     flat: 'Квартира',
@@ -38,6 +36,7 @@
     window.main.checkContent(description, value.offer.description, value.offer.description);
     sortFeatures(features, value.offer.features);
     createPhotos(photoElement, value.offer.photos);
+
     if (value.author.avatar) {
       avatar.setAttribute('src', value.author.avatar);
     } else {
@@ -84,7 +83,7 @@
   }
 
   function onPopupEscPress(evt) {
-    if (evt.key === ESCAPE_KEY) {
+    if (evt.key === window.util.ESCAPE_KEY) {
       closeCard();
     }
   }
@@ -94,17 +93,16 @@
     map.insertBefore(mapCard, mapFiltersContainer);
     var popupClose = document.querySelector('.popup__close');
 
-    mapCard.addEventListener('keydown', onPopupEscPress);
+    document.addEventListener('keydown', onPopupEscPress);
 
     popupClose.addEventListener('click', closeCard);
   }
 
   function closeCard() {
-    var mapCard = document.querySelector('.map__card');
     var popupClose = document.querySelector('.popup__close');
     var mapPinActive = document.querySelector('.map__pin--active');
     popupClose.removeEventListener('click', closeCard);
-    mapCard.removeEventListener('keydown', onPopupEscPress);
+    document.removeEventListener('keydown', onPopupEscPress);
     removeCard();
     if (mapPinActive) {
       mapPinActive.classList.remove('map__pin--active');

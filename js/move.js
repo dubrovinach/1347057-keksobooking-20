@@ -1,7 +1,5 @@
 'use strict';
 (function () {
-  var MAIN_PIN_TIP = 16;
-
   var CoordinatesLimit = {
     x: {
       min: 0,
@@ -44,10 +42,10 @@
         mapPinMain.style.left = CoordinatesLimit.x.min - mapPinMain.offsetWidth / 2 + 'px';
       }
 
-      if (mapPinMain.offsetTop > CoordinatesLimit.y.max - mapPinMain.offsetHeight - MAIN_PIN_TIP) {
-        mapPinMain.style.top = CoordinatesLimit.y.max - mapPinMain.offsetHeight - MAIN_PIN_TIP + 'px';
-      } else if (mapPinMain.offsetTop < CoordinatesLimit.y.min - mapPinMain.offsetHeight - MAIN_PIN_TIP) {
-        mapPinMain.style.top = CoordinatesLimit.y.min - mapPinMain.offsetHeight - MAIN_PIN_TIP + 'px';
+      if (mapPinMain.offsetTop > CoordinatesLimit.y.max - mapPinMain.offsetHeight - window.util.MAIN_PIN_TIP) {
+        mapPinMain.style.top = CoordinatesLimit.y.max - mapPinMain.offsetHeight - window.util.MAIN_PIN_TIP + 'px';
+      } else if (mapPinMain.offsetTop < CoordinatesLimit.y.min - mapPinMain.offsetHeight - window.util.MAIN_PIN_TIP) {
+        mapPinMain.style.top = CoordinatesLimit.y.min - mapPinMain.offsetHeight - window.util.MAIN_PIN_TIP + 'px';
       }
     }
 

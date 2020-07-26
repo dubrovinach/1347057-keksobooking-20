@@ -1,10 +1,6 @@
 'use strict';
 
 (function () {
-  var MAIN_PIN_TIP = 16;
-  var ENTER_KEY = 'Enter';
-  var BUTTON_CLICK = 0;
-
   var map = document.querySelector('.map');
   var form = document.querySelector('.ad-form');
   var mapPinMain = document.querySelector('.map__pin--main');
@@ -23,7 +19,7 @@
     var buttonLeft = element.offsetLeft;
     var buttonTop = element.offsetTop;
     var X = Math.round(buttonLeft + buttonWidth / 2);
-    var Y = isActive ? Math.round(buttonTop + buttonHeight + MAIN_PIN_TIP) : Math.round(buttonTop + buttonHeight / 2);
+    var Y = isActive ? Math.round(buttonTop + buttonHeight + window.util.MAIN_PIN_TIP) : Math.round(buttonTop + buttonHeight / 2);
 
     inputAddress.setAttribute('value', X + ', ' + Y);
   }
@@ -47,7 +43,7 @@
   mapPinMain.addEventListener('click', enableSite);
 
   function enableSite(evt) {
-    if (evt.key === ENTER_KEY || evt.button === BUTTON_CLICK) {
+    if (evt.key === window.util.ENTER_KEY || evt.button === window.util.BUTTON_CLICK) {
       map.classList.remove('map--faded');
       form.classList.remove('ad-form--disabled');
 
